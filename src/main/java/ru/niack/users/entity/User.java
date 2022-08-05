@@ -2,6 +2,7 @@ package ru.niack.users.entity;
 
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import ru.niack.users.api.dto.UserCreateDTO;
 
 import javax.persistence.*;
 
@@ -28,4 +29,13 @@ public class User {
 
   @ColumnDefault("false")
   private boolean deleted;
+
+
+  public User(UserCreateDTO userCreateDTO){
+    this.id = userCreateDTO.getId();
+    this.username = userCreateDTO.getUsername();
+    this.email = userCreateDTO.getEmail();
+    this.password = userCreateDTO.getPassword();
+    this.deleted = userCreateDTO.isDeleted();
+  }
 }

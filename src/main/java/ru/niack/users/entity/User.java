@@ -1,6 +1,7 @@
 package ru.niack.users.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -24,4 +25,7 @@ public class User {
 
   @Column(nullable = false)
   private String password;
+
+  @ColumnDefault("false")
+  private boolean deleted;
 }

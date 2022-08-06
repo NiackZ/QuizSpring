@@ -18,6 +18,6 @@ public class UserCreateDTO {
   @NonNull
   private String password;
 
-  private boolean deleted = true;
+  private boolean deleted = false;
 
 }

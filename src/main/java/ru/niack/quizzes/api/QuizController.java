@@ -1,0 +1,44 @@
+package ru.niack.quizzes.api;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
+import org.springframework.web.bind.annotation.*;
+import ru.niack.quizzes.api.dto.QuizCreateDTO;
+import ru.niack.quizzes.entity.Quiz;
+import ru.niack.quizzes.service.QuizService;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/quizzes")
+public class QuizController {
+
+  @Autowired
+  private QuizService quizService;
+
+  @GetMapping()
+  public List<Quiz> getAll(){
+    return this.quizService.findAll();
+  }
+
+  @GetMapping("{id}")
+  public Quiz getById(@PathVariable Long id){
+    return this.quizService.findById(id);
+  }
+
+  @PostMapping
+  public Long create(@RequestBody QuizCreateDTO quizCreateDTO){
+    return this.quizService.add(quizCreateDTO);
+  }
+
+  @PutMapping("{id}")
+  public Long create(@PathVariable @NonNull Long id, @RequestBody QuizCreateDTO quizCreateDTO){
+    return this.quizService.update(id, quizCreateDTO);
+  }
+
+  @DeleteMapping("{id}")
+  public Long delete(@PathVariable @NonNull Long id, @RequestBody QuizCreateDTO quizCreateDTO){
+    return this.quizService.delete(id, quizCreateDTO);
+  }
+
+}

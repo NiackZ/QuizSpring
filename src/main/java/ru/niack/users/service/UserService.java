@@ -22,7 +22,7 @@ public class UserService {
   }
 
   public Long add(UserCreateDTO userData) {
-    User user = userData.getId() == null ? new User() : new User(userData);
+    User user = userData.getId() == null ? new User() : findById(userData.getId());
     this.userRepository.save(user);
     return 1L;
   }

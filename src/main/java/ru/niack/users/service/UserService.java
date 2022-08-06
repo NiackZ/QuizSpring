@@ -23,6 +23,12 @@ public class UserService {
 
   public Long add(UserCreateDTO userData) {
     User user = userData.getId() == null ? new User() : findById(userData.getId());
+
+    user.setUsername(userData.getUsername());
+    user.setEmail(userData.getEmail());
+    user.setPassword(userData.getPassword());
+    user.setDeleted(userData.isDeleted());
+
     this.userRepository.save(user);
     return 1L;
   }

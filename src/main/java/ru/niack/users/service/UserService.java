@@ -29,8 +29,7 @@ public class UserService {
     user.setPassword(userData.getPassword());
     user.setDeleted(userData.isDeleted());
 
-    this.userRepository.save(user);
-    return 1L;
+    return this.userRepository.save(user).getId();
   }
 
   public Long update(Long id, UserCreateDTO userData){

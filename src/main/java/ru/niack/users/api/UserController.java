@@ -18,27 +18,27 @@ public class UserController {
 
   @GetMapping()
   public List<User> getAll(){
-    return userService.findAll();
+    return this.userService.findAll();
   }
 
   @GetMapping("{id}")
   public User getById(@PathVariable Long id){
-    return userService.findById(id);
+    return this.userService.findById(id);
   }
 
   @PostMapping
-  public Long create(UserCreateDTO userDTO){
-    return userService.add(userDTO);
+  public Long create(@RequestBody UserCreateDTO userDTO){
+    return this.userService.add(userDTO);
   }
 
   @PutMapping("{id}")
-  public Long create(@PathVariable @NonNull Long id, UserCreateDTO userDTO){
-    return userService.update(id, userDTO);
+  public Long create(@PathVariable @NonNull Long id, @RequestBody UserCreateDTO userDTO){
+    return this.userService.update(id, userDTO);
   }
 
   @DeleteMapping("{id}")
-  public Long delete(@PathVariable @NonNull Long id, UserCreateDTO userDTO){
-    return userService.delete(id, userDTO);
+  public Long delete(@PathVariable @NonNull Long id, @RequestBody UserCreateDTO userDTO){
+    return this.userService.delete(id, userDTO);
   }
 
 }

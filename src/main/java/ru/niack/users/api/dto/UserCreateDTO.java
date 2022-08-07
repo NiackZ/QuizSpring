@@ -2,6 +2,7 @@ package ru.niack.users.api.dto;
 
 import lombok.*;
 import org.springframework.lang.NonNull;
+import ru.niack.users.entity.User;
 
 @Getter
 @Setter
@@ -19,5 +20,13 @@ public class UserCreateDTO {
   private String password;
 
   private boolean deleted = false;
+
+  public UserCreateDTO(User author) {
+    this.id = author.getId();
+    this.username = author.getUsername();
+    this.email = author.getEmail();
+    this.password = author.getPassword();
+    this.deleted = author.isDeleted();
+  }
 
 }

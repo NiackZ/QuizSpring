@@ -3,9 +3,9 @@ package ru.niack.quizzes.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.niack.quizzes.api.dto.QuizCreateDTO;
+import ru.niack.quizzes.api.dto.QuizGetDTO;
 import ru.niack.quizzes.entity.Quiz;
 import ru.niack.quizzes.repository.IQuizRepository;
-import ru.niack.users.repository.IUserRepository;
 import ru.niack.users.service.UserService;
 
 import java.util.List;
@@ -14,14 +14,15 @@ import java.util.List;
 public class QuizService {
   @Autowired
   private IQuizRepository quizRepository;
+  @Autowired
   private UserService userService;
 
   public Quiz findById(Long id){
     return this.quizRepository.findById(id).orElseThrow(RuntimeException::new);
   }
 
-  public List<Quiz> findAll(){
-    return this.quizRepository.findAll();
+  public List<QuizGetDTO> findAll(){
+    return this.quizRepository.findAll().stream().map(QuizGetDTO::new).toList();
   }
 
   public Long add(QuizCreateDTO quizCreateDTO) {

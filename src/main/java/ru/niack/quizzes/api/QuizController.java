@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import ru.niack.quizzes.api.dto.QuizCreateDTO;
+import ru.niack.quizzes.api.dto.QuizGetDTO;
 import ru.niack.quizzes.entity.Quiz;
 import ru.niack.quizzes.service.QuizService;
 
@@ -17,7 +18,7 @@ public class QuizController {
   private QuizService quizService;
 
   @GetMapping()
-  public List<Quiz> getAll(){
+  public List<QuizGetDTO> getAll(){
     return this.quizService.findAll();
   }
 

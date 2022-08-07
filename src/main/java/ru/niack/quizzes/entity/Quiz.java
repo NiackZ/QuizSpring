@@ -1,5 +1,6 @@
 package ru.niack.quizzes.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import ru.niack.users.entity.User;
@@ -21,8 +22,9 @@ public class Quiz {
   @Column(nullable = false, unique = false)
   private String title;
 
-  @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-  @JoinColumn(name = "author_id")
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "author_id", nullable = false)
+  @JsonBackReference
   private User author;
 
   @ColumnDefault("false")

@@ -2,7 +2,7 @@ package ru.niack.questions.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-import org.springframework.lang.NonNull;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -14,9 +14,9 @@ public class QuestionCreateDTO {
 
   private Long id;
 
-  @NonNull
+  @NotNull
   private String text;
-  @NonNull
+  @NotNull
   private Long quizId;
 
 }

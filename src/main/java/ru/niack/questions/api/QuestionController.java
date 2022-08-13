@@ -1,7 +1,7 @@
 package ru.niack.questions.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
+import javax.validation.constraints.NotNull;
 import org.springframework.web.bind.annotation.*;
 import ru.niack.questions.api.dto.QuestionCreateDTO;
 import ru.niack.questions.api.dto.QuestionGetDTO;
@@ -32,12 +32,12 @@ public class QuestionController {
   }
 
   @PutMapping("{id}")
-  public Long update(@PathVariable @NonNull Long id, @RequestBody QuestionCreateDTO questionCreateDTO) {
+  public Long update(@PathVariable @NotNull Long id, @RequestBody QuestionCreateDTO questionCreateDTO) {
     return this.questionService.update(id, questionCreateDTO);
   }
 
   @DeleteMapping("{id}")
-  public Long delete(@PathVariable @NonNull Long id) {
+  public Long delete(@PathVariable @NotNull Long id) {
     return this.questionService.delete(id);
   }
 }

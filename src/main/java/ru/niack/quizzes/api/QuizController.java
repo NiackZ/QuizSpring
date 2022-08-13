@@ -1,12 +1,12 @@
 package ru.niack.quizzes.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import ru.niack.quizzes.api.dto.QuizCreateDTO;
 import ru.niack.quizzes.api.dto.QuizGetDTO;
 import ru.niack.quizzes.service.QuizService;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -32,12 +32,12 @@ public class QuizController {
   }
 
   @PutMapping("{id}")
-  public Long create(@PathVariable @NonNull Long id, @RequestBody QuizCreateDTO quizCreateDTO){
+  public Long create(@PathVariable @NotNull Long id, @RequestBody QuizCreateDTO quizCreateDTO){
     return this.quizService.update(id, quizCreateDTO);
   }
 
   @DeleteMapping("{id}")
-  public Long delete(@PathVariable @NonNull Long id, @RequestBody QuizCreateDTO quizCreateDTO){
+  public Long delete(@PathVariable @NotNull Long id, @RequestBody QuizCreateDTO quizCreateDTO){
     return this.quizService.delete(id, quizCreateDTO);
   }
 

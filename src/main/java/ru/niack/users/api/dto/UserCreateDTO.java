@@ -1,8 +1,8 @@
 package ru.niack.users.api.dto;
 
 import lombok.*;
-import org.springframework.lang.NonNull;
 import ru.niack.users.entity.User;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -12,11 +12,11 @@ import ru.niack.users.entity.User;
 public class UserCreateDTO {
 
   private Long id;
-  @NonNull
+  @NotNull
   private String username;
-  @NonNull
+  @NotNull
   private String email;
-  @NonNull
+  @NotNull
   private String password;
 
   private boolean deleted = false;

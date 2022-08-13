@@ -1,7 +1,7 @@
 package ru.niack.questions.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
+import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
 import ru.niack.questions.api.dto.QuestionCreateDTO;
 import ru.niack.questions.api.dto.QuestionGetDTO;
@@ -18,13 +18,13 @@ public class QuestionService {
   @Autowired
   private QuizService quizService;
 
-  public Question findById(@NonNull Long id){
+  public Question findById(@NotNull Long id){
     return this.questionRepository.findById(id).orElseThrow(
         () -> new RuntimeException(String.format("Вопрос с ИД %d не найден", id))
     );
   }
 
-  public QuestionGetDTO getById(@NonNull Long id){
+  public QuestionGetDTO getById(@NotNull Long id){
     return new QuestionGetDTO(this.questionRepository.findById(id).orElseThrow(
         () -> new RuntimeException(String.format("Вопрос с ИД %d не найден", id))
     ));
@@ -34,7 +34,7 @@ public class QuestionService {
     return this.questionRepository.findAll().stream().map(QuestionGetDTO::new).toList();
   }
 
-  public Long add(@NonNull QuestionCreateDTO questionCreateDTO) {
+  public Long add(@NotNull QuestionCreateDTO questionCreateDTO) {
     Question question = questionCreateDTO.getId() == null ? new Question() : findById(questionCreateDTO.getId());
 
     question.setText(questionCreateDTO.getText());
@@ -43,12 +43,12 @@ public class QuestionService {
     return this.questionRepository.save(question).getId();
   }
 
-  public Long update(@NonNull Long id, @NonNull QuestionCreateDTO questionCreateDTO){
+  public Long update(@NotNull Long id, @NotNull QuestionCreateDTO questionCreateDTO){
     questionCreateDTO.setId(id);
     return add(questionCreateDTO);
   }
 
-  public Long delete(@NonNull Long id){
+  public Long delete(@NotNull Long id){
     this.questionRepository.deleteById(id);
     return id;
   }

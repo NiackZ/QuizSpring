@@ -2,7 +2,7 @@ package ru.niack.quizzes.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-import org.springframework.lang.NonNull;
+import javax.validation.constraints.NotNull;
 import ru.niack.questions.api.dto.QuestionGetDTO;
 import ru.niack.quizzes.entity.Quiz;
 import ru.niack.users.api.dto.UserCreateDTO;
@@ -17,9 +17,9 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class QuizGetDTO {
 
-  @NonNull
+  @NotNull
   private Long id;
-  @NonNull
+  @NotNull
   private String title;
 
   private UserCreateDTO author;

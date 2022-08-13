@@ -1,7 +1,7 @@
 package ru.niack.quizzes.api.dto;
 
 import lombok.*;
-import org.springframework.lang.NonNull;
+import javax.validation.constraints.NotNull;
 
 @Getter
 @Setter
@@ -11,9 +11,9 @@ import org.springframework.lang.NonNull;
 public class QuizCreateDTO {
 
   private Long id;
-  @NonNull
+  @NotNull
   private String title;
-  @NonNull
+  @NotNull
   private Long authorId;
 
   private boolean deleted = false;

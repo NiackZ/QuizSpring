@@ -1,12 +1,12 @@
 package ru.niack.users.api;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import ru.niack.users.api.dto.UserCreateDTO;
 import ru.niack.users.api.dto.UserGetDTO;
 import ru.niack.users.service.UserService;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @RestController
@@ -32,12 +32,12 @@ public class UserController {
   }
 
   @PutMapping("{id}")
-  public Long create(@PathVariable @NonNull Long id, @RequestBody UserCreateDTO userDTO){
+  public Long create(@PathVariable @NotNull Long id, @RequestBody UserCreateDTO userDTO){
     return this.userService.update(id, userDTO);
   }
 
   @DeleteMapping("{id}")
-  public Long delete(@PathVariable @NonNull Long id, @RequestBody UserCreateDTO userDTO){
+  public Long delete(@PathVariable @NotNull Long id, @RequestBody UserCreateDTO userDTO){
     return this.userService.delete(id, userDTO);
   }
 

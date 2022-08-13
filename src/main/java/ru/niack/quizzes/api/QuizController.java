@@ -5,7 +5,6 @@ import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 import ru.niack.quizzes.api.dto.QuizCreateDTO;
 import ru.niack.quizzes.api.dto.QuizGetDTO;
-import ru.niack.quizzes.entity.Quiz;
 import ru.niack.quizzes.service.QuizService;
 
 import java.util.List;
@@ -23,8 +22,8 @@ public class QuizController {
   }
 
   @GetMapping("{id}")
-  public Quiz getById(@PathVariable Long id){
-    return this.quizService.findById(id);
+  public QuizGetDTO getById(@PathVariable Long id){
+    return this.quizService.getById(id);
   }
 
   @PostMapping

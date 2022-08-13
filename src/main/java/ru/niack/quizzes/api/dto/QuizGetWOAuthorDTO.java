@@ -5,7 +5,6 @@ import lombok.*;
 import org.springframework.lang.NonNull;
 import ru.niack.questions.api.dto.QuestionGetDTO;
 import ru.niack.quizzes.entity.Quiz;
-import ru.niack.users.api.dto.UserCreateDTO;
 
 import java.util.List;
 
@@ -15,14 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class QuizGetDTO {
+public class QuizGetWOAuthorDTO {
 
   @NonNull
   private Long id;
   @NonNull
   private String title;
-
-  private UserCreateDTO author;
 
   private List<QuestionGetDTO> questions;
 
@@ -30,12 +27,11 @@ public class QuizGetDTO {
 
   private boolean visible;
 
-  public QuizGetDTO(Quiz quiz){
+  public QuizGetWOAuthorDTO(Quiz quiz){
     this.id = quiz.getId();
     this.title = quiz.getTitle();
     this.deleted = quiz.isDeleted();
     this.visible = quiz.isVisible();
-    this.author = new UserCreateDTO(quiz.getAuthor());
     this.questions = quiz.getQuestions().stream().map(QuestionGetDTO::new).toList();
   }
 

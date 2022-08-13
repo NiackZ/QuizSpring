@@ -14,7 +14,7 @@ public class QuizCreateDTO {
   @NonNull
   private String title;
   @NonNull
-  private Long author_id;
+  private Long authorId;
 
   private boolean deleted = false;
 

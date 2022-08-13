@@ -17,11 +17,19 @@ public class QuizService {
   @Autowired
   private UserService userService;
 
-  public Quiz findById(Long id){
+  private Quiz findById(Long id){
     return this.quizRepository.findById(id).orElseThrow(RuntimeException::new);
   }
 
+  public QuizGetDTO getById(Long id){
+    //todo убрать пароль
+    return new QuizGetDTO(this.quizRepository.findById(id).orElseThrow(
+        () -> new RuntimeException(String.format("Опрос с ИД %d не найден", id))
+    ));
+  }
+
   public List<QuizGetDTO> findAll(){
+    //todo убрать пароль
     return this.quizRepository.findAll().stream().map(QuizGetDTO::new).toList();
   }
 
@@ -29,7 +37,7 @@ public class QuizService {
     Quiz quiz = quizCreateDTO.getId() == null ? new Quiz() : findById(quizCreateDTO.getId());
 
     quiz.setTitle(quizCreateDTO.getTitle());
-    quiz.setAuthor(this.userService.findById(quizCreateDTO.getAuthor_id()));
+    quiz.setAuthor(this.userService.findById(quizCreateDTO.getAuthorId()));
     quiz.setDeleted(quizCreateDTO.isDeleted());
     quiz.setVisible(quizCreateDTO.isVisible());
 

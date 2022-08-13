@@ -14,7 +14,7 @@ public class UserService {
   @Autowired
   private IUserRepository userRepository;
 
-  private User findById(Long id){
+  public User findById(Long id){
     return this.userRepository.findById(id).orElseThrow(RuntimeException::new);
   }
 

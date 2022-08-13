@@ -17,7 +17,7 @@ public class QuizService {
   @Autowired
   private UserService userService;
 
-  private Quiz findById(Long id){
+  public Quiz findById(Long id){
     return this.quizRepository.findById(id).orElseThrow(RuntimeException::new);
   }
 

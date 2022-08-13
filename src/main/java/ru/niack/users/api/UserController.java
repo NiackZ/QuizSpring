@@ -22,22 +22,22 @@ public class UserController {
   }
 
   @GetMapping("{id}")
-  public UserGetDTO getById(@PathVariable Long id){
+  public UserGetDTO getById(@PathVariable @NotNull Long id){
     return this.userService.getById(id);
   }
 
   @PostMapping
-  public Long create(@RequestBody UserCreateDTO userDTO){
+  public Long create(@RequestBody @NotNull UserCreateDTO userDTO){
     return this.userService.add(userDTO);
   }
 
   @PutMapping("{id}")
-  public Long create(@PathVariable @NotNull Long id, @RequestBody UserCreateDTO userDTO){
+  public Long create(@PathVariable @NotNull Long id, @RequestBody @NotNull UserCreateDTO userDTO){
     return this.userService.update(id, userDTO);
   }
 
   @DeleteMapping("{id}")
-  public Long delete(@PathVariable @NotNull Long id, @RequestBody UserCreateDTO userDTO){
+  public Long delete(@PathVariable @NotNull Long id, @RequestBody @NotNull UserCreateDTO userDTO){
     return this.userService.delete(id, userDTO);
   }
 

@@ -8,6 +8,7 @@ import ru.niack.quizzes.entity.Quiz;
 import ru.niack.quizzes.repository.IQuizRepository;
 import ru.niack.users.service.UserService;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -17,11 +18,13 @@ public class QuizService {
   @Autowired
   private UserService userService;
 
-  public Quiz findById(Long id){
-    return this.quizRepository.findById(id).orElseThrow(RuntimeException::new);
+  public Quiz findById(@NotNull Long id){
+    return this.quizRepository.findById(id).orElseThrow(
+        () -> new RuntimeException(String.format("Опрос с ИД %d не найден", id))
+    );
   }
 
-  public QuizGetDTO getById(Long id){
+  public QuizGetDTO getById(@NotNull Long id){
     //todo убрать пароль
     return new QuizGetDTO(this.quizRepository.findById(id).orElseThrow(
         () -> new RuntimeException(String.format("Опрос с ИД %d не найден", id))
@@ -33,7 +36,7 @@ public class QuizService {
     return this.quizRepository.findAll().stream().map(QuizGetDTO::new).toList();
   }
 
-  public Long add(QuizCreateDTO quizCreateDTO) {
+  public Long add(@NotNull QuizCreateDTO quizCreateDTO) {
     Quiz quiz = quizCreateDTO.getId() == null ? new Quiz() : findById(quizCreateDTO.getId());
 
     quiz.setTitle(quizCreateDTO.getTitle());
@@ -44,12 +47,12 @@ public class QuizService {
     return this.quizRepository.save(quiz).getId();
   }
 
-  public Long update(Long id, QuizCreateDTO quizCreateDTO){
+  public Long update(@NotNull Long id, @NotNull QuizCreateDTO quizCreateDTO){
     quizCreateDTO.setId(id);
     return add(quizCreateDTO);
   }
 
-  public Long delete(Long id, QuizCreateDTO quizCreateDTO){
+  public Long delete(@NotNull Long id, @NotNull QuizCreateDTO quizCreateDTO){
     quizCreateDTO.setId(id);
     quizCreateDTO.setDeleted(true);
     return add(quizCreateDTO);

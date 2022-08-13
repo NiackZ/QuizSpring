@@ -22,22 +22,22 @@ public class QuizController {
   }
 
   @GetMapping("{id}")
-  public QuizGetDTO getById(@PathVariable Long id){
+  public QuizGetDTO getById(@PathVariable @NotNull Long id){
     return this.quizService.getById(id);
   }
 
   @PostMapping
-  public Long create(@RequestBody QuizCreateDTO quizCreateDTO){
+  public Long create(@RequestBody @NotNull QuizCreateDTO quizCreateDTO){
     return this.quizService.add(quizCreateDTO);
   }
 
   @PutMapping("{id}")
-  public Long create(@PathVariable @NotNull Long id, @RequestBody QuizCreateDTO quizCreateDTO){
+  public Long create(@PathVariable @NotNull Long id, @RequestBody @NotNull QuizCreateDTO quizCreateDTO){
     return this.quizService.update(id, quizCreateDTO);
   }
 
   @DeleteMapping("{id}")
-  public Long delete(@PathVariable @NotNull Long id, @RequestBody QuizCreateDTO quizCreateDTO){
+  public Long delete(@PathVariable @NotNull Long id, @RequestBody @NotNull QuizCreateDTO quizCreateDTO){
     return this.quizService.delete(id, quizCreateDTO);
   }
 

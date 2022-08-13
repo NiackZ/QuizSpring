@@ -5,6 +5,7 @@ import lombok.*;
 import ru.niack.quizzes.api.dto.QuizGetWOAuthorDTO;
 import ru.niack.users.entity.User;
 
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +17,11 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserGetDTO {
 
+  @NotNull
   private Long id;
-
+  @NotNull
   private String username;
-
+  @NotNull
   private String email;
 
   private List<QuizGetWOAuthorDTO> quizzes = new ArrayList<>();

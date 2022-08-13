@@ -7,6 +7,7 @@ import ru.niack.users.api.dto.UserGetDTO;
 import ru.niack.users.entity.User;
 import ru.niack.users.repository.IUserRepository;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Service
@@ -14,13 +15,13 @@ public class UserService {
   @Autowired
   private IUserRepository userRepository;
 
-  public User findById(Long id){
+  public User findById(@NotNull Long id){
     return this.userRepository.findById(id).orElseThrow(
         () -> new RuntimeException(String.format("Пользователь с ИД %d не найден", id))
     );
   }
 
-  public UserGetDTO getById(Long id){
+  public UserGetDTO getById(@NotNull Long id){
     return new UserGetDTO(this.userRepository.findById(id).orElseThrow(
         () -> new RuntimeException(String.format("Пользователь с ИД %d не найден", id))
     ));
@@ -30,7 +31,7 @@ public class UserService {
     return this.userRepository.findAll().stream().map(UserGetDTO::new).toList();
   }
 
-  public Long add(UserCreateDTO userData) {
+  public Long add(@NotNull UserCreateDTO userData) {
     User user = userData.getId() == null ? new User() : findById(userData.getId());
 
     user.setUsername(userData.getUsername());
@@ -41,12 +42,12 @@ public class UserService {
     return this.userRepository.save(user).getId();
   }
 
-  public Long update(Long id, UserCreateDTO userData){
+  public Long update(@NotNull Long id, @NotNull UserCreateDTO userData){
     userData.setId(id);
     return add(userData);
   }
 
-  public Long delete(Long id, UserCreateDTO userData){
+  public Long delete(@NotNull Long id, @NotNull UserCreateDTO userData){
     userData.setId(id);
     userData.setDeleted(true);
     return add(userData);

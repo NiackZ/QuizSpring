@@ -22,17 +22,17 @@ public class QuestionController {
   }
 
   @GetMapping("{id}")
-  public QuestionGetDTO getById(@PathVariable Long id) {
+  public QuestionGetDTO getById(@PathVariable @NotNull Long id) {
     return this.questionService.getById(id);
   }
 
   @PostMapping
-  public Long create(@RequestBody QuestionCreateDTO questionCreateDTO) {
+  public Long create(@RequestBody @NotNull QuestionCreateDTO questionCreateDTO) {
     return this.questionService.add(questionCreateDTO);
   }
 
   @PutMapping("{id}")
-  public Long update(@PathVariable @NotNull Long id, @RequestBody QuestionCreateDTO questionCreateDTO) {
+  public Long update(@PathVariable @NotNull Long id, @RequestBody @NotNull QuestionCreateDTO questionCreateDTO) {
     return this.questionService.update(id, questionCreateDTO);
   }
 

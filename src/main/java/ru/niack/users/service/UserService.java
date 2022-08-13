@@ -15,11 +15,15 @@ public class UserService {
   private IUserRepository userRepository;
 
   public User findById(Long id){
-    return this.userRepository.findById(id).orElseThrow(RuntimeException::new);
+    return this.userRepository.findById(id).orElseThrow(
+        () -> new RuntimeException(String.format("Пользователь с ИД %d не найден", id))
+    );
   }
 
   public UserGetDTO getById(Long id){
-    return new UserGetDTO(this.userRepository.findById(id).orElseThrow(RuntimeException::new));
+    return new UserGetDTO(this.userRepository.findById(id).orElseThrow(
+        () -> new RuntimeException(String.format("Пользователь с ИД %d не найден", id))
+    ));
   }
 
   public List<UserGetDTO> findAll(){

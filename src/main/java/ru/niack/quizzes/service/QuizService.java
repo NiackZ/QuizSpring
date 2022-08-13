@@ -2,15 +2,18 @@ package ru.niack.quizzes.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import ru.niack.quizzes.api.dto.QuizCreateDTO;
 import ru.niack.quizzes.api.dto.QuizGetDTO;
 import ru.niack.quizzes.entity.Quiz;
 import ru.niack.quizzes.repository.IQuizRepository;
 import ru.niack.users.service.UserService;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
+@Validated
 @Service
 public class QuizService {
   @Autowired
@@ -36,7 +39,7 @@ public class QuizService {
     return this.quizRepository.findAll().stream().map(QuizGetDTO::new).toList();
   }
 
-  public Long add(@NotNull QuizCreateDTO quizCreateDTO) {
+  public Long add(@NotNull @Valid QuizCreateDTO quizCreateDTO) {
     Quiz quiz = quizCreateDTO.getId() == null ? new Quiz() : findById(quizCreateDTO.getId());
 
     quiz.setTitle(quizCreateDTO.getTitle());
@@ -47,12 +50,12 @@ public class QuizService {
     return this.quizRepository.save(quiz).getId();
   }
 
-  public Long update(@NotNull Long id, @NotNull QuizCreateDTO quizCreateDTO){
+  public Long update(@NotNull Long id, @NotNull @Valid QuizCreateDTO quizCreateDTO){
     quizCreateDTO.setId(id);
     return add(quizCreateDTO);
   }
 
-  public Long delete(@NotNull Long id, @NotNull QuizCreateDTO quizCreateDTO){
+  public Long delete(@NotNull Long id, @NotNull @Valid QuizCreateDTO quizCreateDTO){
     quizCreateDTO.setId(id);
     quizCreateDTO.setDeleted(true);
     return add(quizCreateDTO);

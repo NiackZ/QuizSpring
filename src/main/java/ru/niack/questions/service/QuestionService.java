@@ -1,8 +1,11 @@
 package ru.niack.questions.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import ru.niack.questions.api.dto.QuestionCreateDTO;
 import ru.niack.questions.api.dto.QuestionGetDTO;
 import ru.niack.questions.entity.Question;
@@ -11,6 +14,7 @@ import ru.niack.quizzes.service.QuizService;
 
 import java.util.List;
 
+@Validated
 @Service
 public class QuestionService {
   @Autowired
@@ -34,7 +38,7 @@ public class QuestionService {
     return this.questionRepository.findAll().stream().map(QuestionGetDTO::new).toList();
   }
 
-  public Long add(@NotNull QuestionCreateDTO questionCreateDTO) {
+  public Long add(@NotNull @Valid QuestionCreateDTO questionCreateDTO) {
     Question question = questionCreateDTO.getId() == null ? new Question() : findById(questionCreateDTO.getId());
 
     question.setText(questionCreateDTO.getText());
@@ -43,7 +47,7 @@ public class QuestionService {
     return this.questionRepository.save(question).getId();
   }
 
-  public Long update(@NotNull Long id, @NotNull QuestionCreateDTO questionCreateDTO){
+  public Long update(@NotNull Long id, @NotNull @Valid QuestionCreateDTO questionCreateDTO){
     questionCreateDTO.setId(id);
     return add(questionCreateDTO);
   }

@@ -1,6 +1,5 @@
 package ru.niack.users.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 import ru.niack.quizzes.entity.Quiz;
@@ -28,7 +27,6 @@ public class User {
   private String email;
 
   @OneToMany(mappedBy = "author", fetch = FetchType.LAZY)
-  @JsonManagedReference
   private List<Quiz> quizzes = new ArrayList<>();
 
   @Column(nullable = false)

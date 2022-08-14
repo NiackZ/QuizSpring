@@ -2,7 +2,8 @@ package ru.niack.users.api.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
-import ru.niack.quizzes.api.dto.QuizGetWOAuthorDTO;
+import ru.niack.quizzes.api.dto.QuizGetDTO;
+import ru.niack.quizzes.entity.Quiz;
 import ru.niack.users.entity.User;
 
 import javax.validation.constraints.NotNull;
@@ -13,7 +14,6 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserGetDTO {
 
@@ -24,7 +24,7 @@ public class UserGetDTO {
   @NotNull
   private String email;
 
-  private List<QuizGetWOAuthorDTO> quizzes = new ArrayList<>();
+  private List<QuizGetDTO> quizzes = new ArrayList<>();
 
   private boolean deleted;
 
@@ -33,6 +33,14 @@ public class UserGetDTO {
     this.username = user.getUsername();
     this.email = user.getEmail();
     this.deleted = user.isDeleted();
-    this.quizzes = user.getQuizzes().stream().map(QuizGetWOAuthorDTO::new).toList();
+    this.quizzes = null;
+  }
+
+  public void setQuizzes(List<Quiz> quizzes) {
+    this.quizzes = quizzes.stream().map(quiz -> {
+      QuizGetDTO quizGetDTO = new QuizGetDTO(quiz);
+      quizGetDTO.setQuestions(quiz.getQuestions());
+      return quizGetDTO;
+    }).toList();
   }
 }

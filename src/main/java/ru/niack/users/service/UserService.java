@@ -25,13 +25,14 @@ public class UserService {
   }
 
   public UserGetDTO getById(@NotNull Long id){
-    return new UserGetDTO(this.userRepository.findById(id).orElseThrow(
-        () -> new RuntimeException(String.format("Пользователь с ИД %d не найден", id))
-    ));
+    User user = findById(id);
+    UserGetDTO userGetDTO = new UserGetDTO(user);
+    userGetDTO.setQuizzes(user.getQuizzes());
+    return userGetDTO;
   }
 
   public List<UserGetDTO> findAll(){
-    return this.userRepository.findAll().stream().map(UserGetDTO::new).toList();
+    return this.userRepository.findAll().stream().map(user -> getById(user.getId())).toList();
   }
 
   public Long add(@Valid @NotNull UserCreateDTO userData) {

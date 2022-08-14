@@ -49,13 +49,11 @@ public class UserService {
     return this.userRepository.save(user).getId();
   }
 
-  public Long update(@NotNull Long id, @Valid @NotNull UserCreateDTO userData){
-    userData.setId(id);
+  public Long update(@Valid @NotNull UserCreateDTO userData){
     return add(userData);
   }
 
-  public Long delete(@NotNull Long id, @Valid @NotNull UserCreateDTO userData){
-    userData.setId(id);
+  public Long delete(@Valid @NotNull UserCreateDTO userData){
     userData.setDeleted(true);
     return add(userData);
   }

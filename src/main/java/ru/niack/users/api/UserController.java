@@ -32,13 +32,15 @@ public class UserController {
   }
 
   @PutMapping("{id}")
-  public Long create(@PathVariable @NotNull Long id, @RequestBody @NotNull UserCreateDTO userDTO){
-    return this.userService.update(id, userDTO);
+  public Long update(@PathVariable @NotNull Long id, @RequestBody @NotNull UserCreateDTO userDTO){
+    userDTO.setId(id);
+    return this.userService.update(userDTO);
   }
 
   @DeleteMapping("{id}")
   public Long delete(@PathVariable @NotNull Long id, @RequestBody @NotNull UserCreateDTO userDTO){
-    return this.userService.delete(id, userDTO);
+    userDTO.setId(id);
+    return this.userService.delete(userDTO);
   }
 
 }

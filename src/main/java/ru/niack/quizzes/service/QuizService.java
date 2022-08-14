@@ -29,14 +29,16 @@ public class QuizService {
 
   public QuizGetDTO getById(@NotNull Long id){
     //todo убрать пароль
-    return new QuizGetDTO(this.quizRepository.findById(id).orElseThrow(
-        () -> new RuntimeException(String.format("Опрос с ИД %d не найден", id))
-    ));
+    Quiz quiz = findById(id);
+    QuizGetDTO quizGetDTO = new QuizGetDTO(quiz);
+    quizGetDTO.setAuthor(quiz.getAuthor());
+    quizGetDTO.setQuestions(quiz.getQuestions());
+    return quizGetDTO;
   }
 
   public List<QuizGetDTO> findAll(){
     //todo убрать пароль
-    return this.quizRepository.findAll().stream().map(QuizGetDTO::new).toList();
+    return this.quizRepository.findAll().stream().map(quiz -> getById(quiz.getId())).toList();
   }
 
   public Long add(@NotNull @Valid QuizCreateDTO quizCreateDTO) {

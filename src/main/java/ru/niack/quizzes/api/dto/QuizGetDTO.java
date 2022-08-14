@@ -4,8 +4,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import javax.validation.constraints.NotNull;
 import ru.niack.questions.api.dto.QuestionGetDTO;
+import ru.niack.questions.entity.Question;
 import ru.niack.quizzes.entity.Quiz;
 import ru.niack.users.api.dto.UserCreateDTO;
+import ru.niack.users.entity.User;
 
 import java.util.List;
 
@@ -35,8 +37,15 @@ public class QuizGetDTO {
     this.title = quiz.getTitle();
     this.deleted = quiz.isDeleted();
     this.visible = quiz.isVisible();
-    this.author = new UserCreateDTO(quiz.getAuthor());
-    this.questions = quiz.getQuestions().stream().map(QuestionGetDTO::new).toList();
+    this.author = null;
+    this.questions = null;
   }
 
+  public void setAuthor(User user) {
+    this.author = new UserCreateDTO(user);
+  }
+
+  public void setQuestions(List<Question> questions) {
+    this.questions = questions.stream().map(QuestionGetDTO::new).toList();
+  }
 }

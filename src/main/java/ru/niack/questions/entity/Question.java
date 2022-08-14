@@ -1,9 +1,11 @@
 package ru.niack.questions.entity;
 
 import lombok.*;
+import ru.niack.answers.entity.Answer;
 import ru.niack.quizzes.entity.Quiz;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,4 +24,7 @@ public class Question {
 
   @ManyToOne(fetch = FetchType.LAZY)
   private Quiz quiz;
+
+  @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
+  private List<Answer> answers;
 }

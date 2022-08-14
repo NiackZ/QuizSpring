@@ -33,7 +33,11 @@ public class QuestionService {
   }
 
   public List<QuestionGetDTO> findAll(){
-    return this.questionRepository.findAll().stream().map(QuestionGetDTO::new).toList();
+    return this.questionRepository.findAll().stream().map(question -> {
+      QuestionGetDTO questionGetDTO = new QuestionGetDTO(question);
+      questionGetDTO.setAnswers(question.getAnswers());
+      return questionGetDTO;
+    }).toList();
   }
 
   public Long add(@NotNull @Valid QuestionCreateDTO questionCreateDTO) {

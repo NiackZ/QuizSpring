@@ -29,9 +29,7 @@ public class QuestionService {
   }
 
   public QuestionGetDTO getById(@NotNull Long id){
-    return new QuestionGetDTO(this.questionRepository.findById(id).orElseThrow(
-        () -> new RuntimeException(String.format("Вопрос с ИД %d не найден", id))
-    ));
+    return new QuestionGetDTO(findById(id));
   }
 
   public List<QuestionGetDTO> findAll(){

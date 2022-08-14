@@ -18,6 +18,12 @@ public class UserService {
   @Autowired
   private IUserRepository userRepository;
 
+  private UserGetDTO userToUserGetDTO(User user){
+    UserGetDTO userGetDTO = new UserGetDTO(user);
+    userGetDTO.setQuizzes(user.getQuizzes());
+    return userGetDTO;
+  }
+
   public User findById(@NotNull Long id){
     return this.userRepository.findById(id).orElseThrow(
         () -> new RuntimeException(String.format("Пользователь с ИД %d не найден", id))
@@ -25,14 +31,11 @@ public class UserService {
   }
 
   public UserGetDTO getById(@NotNull Long id){
-    User user = findById(id);
-    UserGetDTO userGetDTO = new UserGetDTO(user);
-    userGetDTO.setQuizzes(user.getQuizzes());
-    return userGetDTO;
+    return userToUserGetDTO(findById(id));
   }
 
   public List<UserGetDTO> findAll(){
-    return this.userRepository.findAll().stream().map(user -> getById(user.getId())).toList();
+    return this.userRepository.findAll().stream().map(this::userToUserGetDTO).toList();
   }
 
   public Long add(@Valid @NotNull UserCreateDTO userData) {

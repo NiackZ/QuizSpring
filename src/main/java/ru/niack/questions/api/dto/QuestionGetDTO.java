@@ -24,9 +24,13 @@ public class QuestionGetDTO {
   @NotNull
   private List<AnswerGetDTO> answers;
 
+  private AnswerGetDTO answerKey = null;
+
   public QuestionGetDTO(Question questionData){
     this.id = questionData.getId();
     this.text = questionData.getText();
+    if (questionData.getAnswerKey() != null)
+      this.answerKey = new AnswerGetDTO(questionData.getAnswerKey());
   }
 
   public void setAnswers(List<Answer> answers) {

@@ -67,7 +67,7 @@ public class QuestionService {
     boolean loopAnswer = question.getAnswers().stream().map(Answer::getId).anyMatch(answer.getId()::equals);
     if (loopAnswer)
       throw new RuntimeException(String.format(
-          "Ошибка рекурсии. Нельзя назначить ответ с ИД=%d, так как он привязан к привязываемому вопросу.", answer.getId()));
+          "Ошибка рекурсии. Нельзя назначить ответ с ИД=%d, так как он содержится в привязываемом вопросе.", answer.getId()));
     question.setAnswerKey(answer);
     return this.questionRepository.save(question).getId();
   }

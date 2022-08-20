@@ -1,6 +1,7 @@
 package ru.niack.questions.entity;
 
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 import ru.niack.answers.entity.Answer;
 import ru.niack.quizzes.entity.Quiz;
 
@@ -27,4 +28,8 @@ public class Question {
 
   @OneToMany(mappedBy = "question", fetch = FetchType.LAZY)
   private List<Answer> answers;
+
+  @OneToOne
+  @ColumnDefault("null")
+  private Answer answerKey;
 }

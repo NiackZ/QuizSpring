@@ -6,6 +6,7 @@ import org.springframework.validation.annotation.Validated;
 import ru.niack.answers.api.dto.AnswerCreateDTO;
 import ru.niack.answers.api.dto.AnswerGetDTO;
 import ru.niack.answers.entity.Answer;
+import ru.niack.answers.entity.AnswerKey;
 import ru.niack.answers.repository.IAnswerRepository;
 import ru.niack.questions.service.QuestionService;
 
@@ -51,6 +52,10 @@ public class AnswerService {
   public Long delete(@NotNull Long id){
     this.answerRepository.deleteById(id);
     return id;
+  }
+
+  public Long setAsAnswerKey(@NotNull AnswerKey answerKey){
+    return this.questionService.setAnswerKey(answerKey.getQuestionId(), findById(answerKey.getAnswerId()));
   }
 
 }

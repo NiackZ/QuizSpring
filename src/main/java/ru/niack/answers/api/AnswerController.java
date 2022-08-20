@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import ru.niack.answers.api.dto.AnswerCreateDTO;
 import ru.niack.answers.api.dto.AnswerGetDTO;
+import ru.niack.answers.entity.AnswerKey;
 import ru.niack.answers.service.AnswerService;
 
 import javax.validation.constraints.NotNull;
@@ -40,6 +41,16 @@ public class AnswerController {
   @DeleteMapping("{id}")
   public Long delete(@NotNull @PathVariable Long id){
     return this.answerService.delete(id);
+  }
+
+  @PostMapping("{id}/answerkey")
+  public Long setAsAnswerKey(@NotNull @PathVariable Long id, @NotNull @RequestParam(value = "questionId") Long questionId){
+    return this.answerService.setAsAnswerKey(new AnswerKey()
+        .builder()
+        .answerId(id)
+        .questionId(questionId)
+        .build()
+    );
   }
 
 }

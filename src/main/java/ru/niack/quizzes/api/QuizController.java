@@ -41,4 +41,9 @@ public class QuizController {
     return this.quizService.delete(id, quizCreateDTO);
   }
 
+  @GetMapping("{id}/result")
+  public QuizGetDTO getResult(@PathVariable @NotNull Long id){
+    return this.quizService.getResult(id);
+  }
+
 }

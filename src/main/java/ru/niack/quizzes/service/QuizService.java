@@ -3,6 +3,7 @@ package ru.niack.quizzes.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
+import ru.niack.questions.api.dto.QuestionGetDTO;
 import ru.niack.quizzes.api.dto.QuizCreateDTO;
 import ru.niack.quizzes.api.dto.QuizGetDTO;
 import ru.niack.quizzes.entity.Quiz;
@@ -64,6 +65,19 @@ public class QuizService {
     quizCreateDTO.setId(id);
     quizCreateDTO.setDeleted(true);
     return add(quizCreateDTO);
+  }
+
+  public QuizGetDTO getResult(@NotNull Long quizId){
+    Quiz quiz = findById(quizId);
+    QuizGetDTO quizGetDTO = new QuizGetDTO(quiz);
+    quizGetDTO.setQuestionsFromDTO(quiz.getQuestions().stream().map(question -> {
+      QuestionGetDTO questionGetDTO = new QuestionGetDTO(question);
+      questionGetDTO.setAnswers(question.getAnswers());
+      if (question.getAnswerKey() != null)
+        questionGetDTO.setAnswerKey(question.getAnswerKey());
+      return questionGetDTO;
+    }).toList());
+    return quizGetDTO;
   }
 
 }

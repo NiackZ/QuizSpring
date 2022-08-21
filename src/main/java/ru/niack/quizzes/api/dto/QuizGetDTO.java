@@ -48,4 +48,9 @@ public class QuizGetDTO {
   public void setQuestions(List<Question> questions) {
     this.questions = questions.stream().map(QuestionGetDTO::new).toList();
   }
+
+  public void setQuestionsFromDTO(List<QuestionGetDTO> questions) {
+    this.questions = questions;
+  }
+
 }

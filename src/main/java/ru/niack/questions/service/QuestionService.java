@@ -67,6 +67,9 @@ public class QuestionService {
   public Long setAnswerKey(@NotNull Long questionId, Answer answer){
     Question question = findById(questionId);
     boolean loopAnswer = question.getAnswers().stream().map(Answer::getId).anyMatch(answer.getId()::equals);
+    boolean sameQuiz = question.getQuiz().equals(answer.getQuestion().getQuiz());
+    if (!sameQuiz)
+      throw new RuntimeException("Ошибка. Можно выбирать только те вопросы, которые находится в одном квизе.");
     if (loopAnswer)
       throw new RuntimeException(String.format(
           "Ошибка рекурсии. Нельзя назначить ответ с ИД=%d, так как он содержится в привязываемом вопросе.", answer.getId()));

@@ -29,11 +29,13 @@ public class QuestionGetDTO {
   public QuestionGetDTO(Question questionData){
     this.id = questionData.getId();
     this.text = questionData.getText();
-    if (questionData.getAnswerKey() != null)
-      this.answerKey = new AnswerGetDTO(questionData.getAnswerKey());
   }
 
   public void setAnswers(List<Answer> answers) {
     this.answers = answers.stream().map(AnswerGetDTO::new).toList();
+  }
+
+  public void setAnswerKey(Answer answer){
+    this.answerKey = new AnswerGetDTO(answer);
   }
 }

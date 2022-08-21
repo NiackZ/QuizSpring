@@ -26,6 +26,8 @@ public class QuestionService {
   private QuestionGetDTO setAsQGDTO(Question question){
     QuestionGetDTO questionGetDTO = new QuestionGetDTO(question);
     questionGetDTO.setAnswers(question.getAnswers());
+    if (question.getAnswerKey() != null)
+      questionGetDTO.setAnswerKey(question.getAnswerKey());
     return questionGetDTO;
   }
 
@@ -69,6 +71,12 @@ public class QuestionService {
       throw new RuntimeException(String.format(
           "Ошибка рекурсии. Нельзя назначить ответ с ИД=%d, так как он содержится в привязываемом вопросе.", answer.getId()));
     question.setAnswerKey(answer);
+    return this.questionRepository.save(question).getId();
+  }
+
+  public Long deleteAnswerKey(@NotNull Long questionId){
+    Question question = findById(questionId);
+    question.setAnswerKey(null);
     return this.questionRepository.save(question).getId();
   }
 
